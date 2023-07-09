@@ -8,12 +8,10 @@ scrapper = Scrapper()
 scrapper.find_images()
 ads_count = len(scrapper.ads_list)
 
-with Bar('Processing...') as bar:
+with Bar('Processing...', max=ads_count, suffix='%(percent).1f%% - %(eta)ds') as bar:
     for i in range(ads_count):
         sleep(0.02)
         bar.next()
         plate_num = get_plate_text(scrapper.ads_list[i].img_url)
         if is_foreign_plate(plate_num):
             print(f'Ad found: {scrapper.ads_list[i].ad_url}')
-
-
